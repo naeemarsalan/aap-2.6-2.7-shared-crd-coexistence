@@ -1,0 +1,29 @@
+# before: EDA objects and EDA pods per namespace
+aap-crdtest-26 aap26-eda
+aap-crdtest-27 aap27-eda
+aap-crdtest-26 eda pods: 8
+aap-crdtest-27 eda pods: 6
+
+# step 2: someone 'finishes the cleanup' of the 2.7 tenant by deleting a CRD
+customresourcedefinition.apiextensions.k8s.io "edas.eda.ansible.com" deleted
+# after 90s:
+edas.eda.ansible.com   2026-11-10T22:48:18Z
+NAMESPACE        NAME        AGE
+aap-crdtest-27   aap27-eda   42m
+aap-crdtest-26 eda pods: 0
+aap-crdtest-27 eda pods: 6
+# 2.6 CSVs (the operators that were NOT being uninstalled):
+aap-crdtest-26	aap-operator.v2.6.0-0.1793352877	Succeeded	InstallSucceeded	install strategy completed with no errors
+aap-crdtest-26b	aap-operator.v2.6.0-0.1793352877	Succeeded	InstallSucceeded	install strategy completed with no errors
+# 2.6 AAP CR:
+Failure=True Successful=False
+
+# detail
+{"deletionTimestamp":"2026-11-10T23:45:54Z","finalizers":["customresourcecleanup.apiextensions.k8s.io"],"conditions":[{"type":"Terminating","status":"True","reason":"InstanceDeletionInProgress","message":"CustomResource deletion is in progress"}]}
+# orphaned 2.7 EDA CR (its operator was uninstalled in step 1):
+{"deletionTimestamp":"2026-11-10T23:45:54Z","finalizers":["eda.ansible.com/finalizer"]}
+# 2.6 AAP CR conditions:
+{"type":"Failure","status":"True","reason":"Failed","message":"Failed to apply object: b'{\"kind\":\"Status\",\"apiVersion\":\"v1\",\"metadata\":{},\"status\":\"Failure\",\"message\":\"create not allowed while custom resource definition is terminating\",\"reason\":\"MethodNotAllowed\",\"details\":{\"group\":\"eda.ansible.com\",\"kind\":\"edas\"},\"code\":405}\\n'"}
+# 2.6 gateway operator log:
+# trying to create an EDA object while the CRD is terminating:
+Error from server (MethodNotAllowed): error when creating "STDIN": create not allowed while custom resource definition is terminating

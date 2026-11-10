@@ -1,0 +1,24 @@
+# A cluster-scoped (AllNamespaces) 2.7 operator next to existing namespace-scoped operators.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aap-crdtest-global
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: aap-crdtest-global
+  namespace: aap-crdtest-global
+spec: {}
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ansible-automation-platform-operator
+  namespace: aap-crdtest-global
+spec:
+  channel: stable-2.7-cluster-scoped
+  installPlanApproval: Manual
+  name: ansible-automation-platform-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace

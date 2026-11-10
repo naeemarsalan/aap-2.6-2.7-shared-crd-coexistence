@@ -1,0 +1,5 @@
+Warning: unknown field "spec.scheduler"
+eda.eda.ansible.com/aap26-eda patched (no change)
+null
+error: unknown flag: --validate
+See 'oc patch --help' for usage.

@@ -1,0 +1,15 @@
+# After the 2.6 EDA operator pod restarted and re-reconciled (2.7 CRDs on the cluster)
+## CSV
+aap-operator.v2.6.0-0.1793352877	Succeeded	InstallSucceeded
+## AAP CR spec.eda (parent CR; spec.eda is x-kubernetes-preserve-unknown-fields)
+{"disabled":false,"scheduler":{"node_selector":{"kubernetes.io/os":"linux"},"replicas":1,"resource_requirements":{"requests":{"cpu":"111m","memory":"211Mi"}}}}
+## EDA CR: generation, resourceVersion, spec.scheduler, spec keys only present in one CRD revision
+{"generation":1,"resourceVersion":"52878","scheduler":null,"event_persistence":null,"specKeyCount":12}
+## EDA scheduler Deployment actually running
+{"generation":2,"replicas":2,"nodeSelector":null,"resources":{"requests":{"cpu":"50m","memory":"256Mi"}}}
+## CR conditions
+ansibleautomationplatform/aap26  Failure=False()  Successful=False(Successful)  Running=True(Running)
+eda/aap26-eda  Failure=False()  Successful=False(Successful)  Running=True(Running)
+automationcontroller/aap26-controller  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+## pods not Running/Completed
+0

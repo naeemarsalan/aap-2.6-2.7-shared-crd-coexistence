@@ -1,0 +1,26 @@
+# Namespace A: AAP operator 2.6, namespace-scoped (OwnNamespace OperatorGroup)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aap-crdtest-26
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: aap-crdtest-26
+  namespace: aap-crdtest-26
+spec:
+  targetNamespaces:
+    - aap-crdtest-26
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ansible-automation-platform-operator
+  namespace: aap-crdtest-26
+spec:
+  channel: stable-2.6
+  installPlanApproval: Manual
+  name: ansible-automation-platform-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace

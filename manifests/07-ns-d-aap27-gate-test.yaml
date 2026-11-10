@@ -1,0 +1,26 @@
+# Namespace D: another 2.7 install, used for the synthetic InstallPlan-gate test.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aap-crdtest-27b
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: aap-crdtest-27b
+  namespace: aap-crdtest-27b
+spec:
+  targetNamespaces:
+    - aap-crdtest-27b
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ansible-automation-platform-operator
+  namespace: aap-crdtest-27b
+spec:
+  channel: stable-2.7
+  installPlanApproval: Manual
+  name: ansible-automation-platform-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace

@@ -1,0 +1,8 @@
+## EDA CR: generation, resourceVersion, spec.scheduler, spec keys only present in one CRD revision
+{"generation":1,"resourceVersion":"53249","scheduler":null,"event_persistence":null,"specKeyCount":12}
+## EDA scheduler Deployment actually running
+{"generation":2,"replicas":2,"nodeSelector":null,"resources":{"requests":{"cpu":"50m","memory":"256Mi"}}}
+## CR conditions
+ansibleautomationplatform/aap26  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+eda/aap26-eda  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+automationcontroller/aap26-controller  Running=True(Successful)  Successful=True(Successful)  Failure=False()

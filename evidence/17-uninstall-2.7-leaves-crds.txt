@@ -1,0 +1,19 @@
+# before: operators and EDA objects
+aap-crdtest-26	aap-operator.v2.6.0-0.1793352877	Succeeded
+aap-crdtest-26b	aap-operator.v2.6.0-0.1793352877	Succeeded
+aap-crdtest-27	aap-operator.v2.7.0-0.1793374941	Succeeded
+aap-crdtest-26 eda.eda.ansible.com/aap26-eda
+aap-crdtest-27 eda.eda.ansible.com/aap27-eda
+aap-crdtest-26 ansibleautomationplatform.aap.ansible.com/aap26
+aap-crdtest-27 ansibleautomationplatform.aap.ansible.com/aap27
+
+# step 1: uninstall the 2.7 operator the documented way (delete Subscription + CSV in aap-crdtest-27)
+subscription.operators.coreos.com "ansible-automation-platform-operator" deleted
+clusterserviceversion.operators.coreos.com "aap-operator.v2.7.0-0.1793374941" deleted
+# AAP CRDs still present: 29
+ansibleautomationplatforms.aap.ansible.com	gen=6	spec-sha=20cc0b716f7a	v1alpha1*	stored=v1alpha1	aap-crdtest-26/aap-operator.v2.6.0-0.1793352877 aap-crdtest-26b/aap-operator.v2.6.0-0.1793352877 aap-crdtest-27/aap-operator.v2.7.0-0.1793374941 aap-crdtest-global/aap-operator.v2.7.0-0.1793374989
+edas.eda.ansible.com	gen=6	spec-sha=b5ee51ca0dbd	v1alpha1*	stored=v1alpha1	aap-crdtest-26/aap-operator.v2.6.0-0.1793352877 aap-crdtest-26b/aap-operator.v2.6.0-0.1793352877 aap-crdtest-27/aap-operator.v2.7.0-0.1793374941 aap-crdtest-global/aap-operator.v2.7.0-0.1793374989
+# 2.7 CRs and workloads left behind (no operator reconciling them any more):
+eda.eda.ansible.com/aap27-eda
+ansibleautomationplatform.aap.ansible.com/aap27
+operator pods: 0  workload pods: 14

@@ -1,0 +1,30 @@
+# AAP instance reconciled by the 2.7 operator. Same spec as the 2.6 one (including the 2.6-only
+# eda.scheduler block) plus two fields that only exist in the 2.7 CRDs:
+#   spec.gateway_timeouts (AnsibleAutomationPlatform CRD) and spec.eda.event_persistence (EDA CRD).
+apiVersion: aap.ansible.com/v1alpha1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap27
+  namespace: aap-crdtest-27
+spec:
+  gateway_timeouts:
+    - gateway_route_name: controller api
+      request_timeout_seconds: 321
+  controller:
+    disabled: false
+  eda:
+    disabled: false
+    event_persistence:
+      deploy_db: false
+    scheduler:
+      replicas: 1
+      node_selector:
+        kubernetes.io/os: linux
+      resource_requirements:
+        requests:
+          cpu: 111m
+          memory: 211Mi
+  hub:
+    disabled: true   # hub needs RWX storage; not needed to exercise the shared-CRD behaviour
+  lightspeed:
+    disabled: true

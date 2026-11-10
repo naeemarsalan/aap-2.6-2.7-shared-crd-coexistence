@@ -1,0 +1,73 @@
+## CSV 2.6: aap-operator.v2.6.0-0.1793352877
+  installModes: {'OwnNamespace': True, 'SingleNamespace': True, 'MultiNamespace': True, 'AllNamespaces': False}
+  olm.skipRange: >=2.4.0-0.1727257740 <2.6.1 | replaces: None | skips: None
+  owned CRDs: 29 required: 0
+  webhookdefinitions: []
+  deployments: ['aap-gateway-operator-controller-manager', 'automation-controller-operator-controller-manager', 'eda-server-operator-controller-manager', 'automation-hub-operator-controller-manager', 'ansible-lightspeed-operator-controller-manager', 'resource-operator-controller-manager', 'automationmetricsservice-operator-controller-manager']
+  annotations: {'operatorframework.io/suggested-namespace': 'aap', 'operators.openshift.io/valid-subscription': '["Red Hat Ansible Automation Platform"]'}
+## CSV 2.7: aap-operator.v2.7.0-0.1793374941
+  installModes: {'OwnNamespace': True, 'SingleNamespace': True, 'MultiNamespace': True, 'AllNamespaces': False}
+  olm.skipRange: >=2.6.0-0 <2.7.1 | replaces: None | skips: None
+  owned CRDs: 29 required: 0
+  webhookdefinitions: []
+  deployments: ['aap-gateway-operator-controller-manager', 'automation-controller-operator-controller-manager', 'eda-server-operator-controller-manager', 'automation-hub-operator-controller-manager', 'ansible-lightspeed-operator-controller-manager', 'resource-operator-controller-manager', 'automationmetricsservice-operator-controller-manager']
+  annotations: {'operatorframework.io/suggested-namespace': 'aap', 'operators.openshift.io/valid-subscription': '["Red Hat Ansible Automation Platform"]'}
+
+## CRDs: 2.6=29 2.7=29
+ansibleautomationplatformbackups.aap.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansibleautomationplatformrestores.aap.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansibleautomationplatforms.aap.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (7 schema diffs)
+  [v1alpha1] ADDED in 2.7: .spec.gateway_timeouts {"type": "array"}
+  [v1alpha1] ADDED in 2.7: .status.edaEventPersistenceDatabaseSecret {"type": "string"}
+  [v1alpha1] ADDED in 2.7: .status.edaEventStreamDatabaseSecret {"type": "string"}
+ansiblecredentials.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansibleinstancegroups.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansibleinventories.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansiblejobs.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansiblelightspeeds.lightspeed.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (2 schema diffs)
+  [v1alpha1] ADDED in 2.7: .spec.chatbot_extra_settings {"type": "object"}
+ansiblemcpserverbackups.mcpserver.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansiblemcpserverrestores.mcpserver.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansiblemcpservers.mcpserver.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansibleprojects.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansibleschedules.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+ansibleworkflows.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+automationcontrollerbackups.automationcontroller.ansible.com: versions 2.6=[v1beta1*] 2.7=[v1beta1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+automationcontrollermeshingresses.automationcontroller.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+automationcontrollerrestores.automationcontroller.ansible.com: versions 2.6=[v1beta1*] 2.7=[v1beta1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+automationcontrollers.automationcontroller.ansible.com: versions 2.6=[v1beta1*] 2.7=[v1beta1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (1 schema diffs)
+  [v1beta1] CHANGED .spec.ingress_type: {"default": "Route", "enum": ["none", "Ingress", "ingress", "Route", "route"], "type": "string"} -> {"enum": ["none", "Ingress", "ingress", "Route", "route"], "type": "string"}
+automationhubbackups.automationhub.ansible.com: versions 2.6=[v1beta1*] 2.7=[v1beta1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (4 schema diffs)
+  [v1beta1] ADDED in 2.7: .status.secretKeySecret {"type": "string"}
+  [v1beta1] CHANGED .status.conditions[]: {"type": "object"} -> {"required": ["lastTransitionTime", "status", "type"], "type": "object"}
+  [v1beta1] CHANGED .status.conditions[].lastTransitionTime: {"type": "string"} -> {"format": "date-time", "type": "string"}
+automationhubrestores.automationhub.ansible.com: versions 2.6=[v1beta1*] 2.7=[v1beta1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (3 schema diffs)
+  [v1beta1] CHANGED .status.conditions[]: {"type": "object"} -> {"required": ["lastTransitionTime", "status", "type"], "type": "object"}
+  [v1beta1] CHANGED .status.conditions[].lastTransitionTime: {"type": "string"} -> {"format": "date-time", "type": "string"}
+automationhubs.automationhub.ansible.com: versions 2.6=[v1beta1*] 2.7=[v1beta1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (529 schema diffs)
+  [v1beta1] ADDED in 2.7: .spec.secret_key_secret {"type": "string"}
+  [v1beta1] ADDED in 2.7: .status.secretKeySecret {"type": "string"}
+  [v1beta1] CHANGED .spec.ingress_type: {"default": "Route", "enum": ["none", "Ingress", "ingress", "Route", "route", "LoadBalancer", "loadbalancer", "NodePort", "nodeport"], "type": "string"} -> {"enum": ["none", "Ingress", "ingress", "Route", "route", "LoadB
+  [v1beta1] CHANGED .status.conditions[]: {"type": "object"} -> {"required": ["lastTransitionTime", "status", "type"], "type": "object"}
+  [v1beta1] CHANGED .status.conditions[].lastTransitionTime: {"type": "string"} -> {"format": "date-time", "type": "string"}
+edabackups.eda.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+edarestores.eda.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+edas.eda.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (835 schema diffs)
+  [v1alpha1] REMOVED in 2.7: .spec.scheduler {"type": "object"}
+  [v1alpha1] ADDED in 2.7: .spec.event_persistence {"type": "object"}
+  [v1alpha1] CHANGED .spec: {"required": ["automation_server_url"], "type": "object", "x-kubernetes-validations": [{"message": "Event stream prefix and mtls_prefix cannot be the same.", "rule": "!has(self.event_stream) || !has(s -> {"required": ["automation_se
+  [v1alpha1] CHANGED .spec.ingress_type: {"default": "Route", "enum": ["None", "none", "Ingress", "ingress", "Route", "route"], "type": "string"} -> {"enum": ["None", "none", "Ingress", "ingress", "Route", "route"], "type": "string"}
+jobtemplates.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+metricsservicebackups.automationmetricsservice.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+metricsservicerestores.automationmetricsservice.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+metricsservices.automationmetricsservice.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+workflowtemplates.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+
+## Per-CRD counts of schema-node differences (2.6 -> 2.7)
+ansibleautomationplatforms.aap.ansible.com: added=7 removed=0 changed=0
+ansiblelightspeeds.lightspeed.ansible.com: added=2 removed=0 changed=0
+automationcontrollers.automationcontroller.ansible.com: added=0 removed=0 changed=1
+automationhubbackups.automationhub.ansible.com: added=2 removed=0 changed=2
+automationhubrestores.automationhub.ansible.com: added=1 removed=0 changed=2
+automationhubs.automationhub.ansible.com: added=526 removed=0 changed=3
+edas.eda.ansible.com: added=790 removed=43 changed=2

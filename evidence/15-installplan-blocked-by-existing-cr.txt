@@ -1,0 +1,7 @@
+  installplan=Installing csv: aap-operator.v2.7.0-0.1793374941=Pending
+  installplan=Installing csv: aap-operator.v2.7.0-0.1793374941=Pending
+  installplan=Installing csv: aap-operator.v2.7.0-0.1793374941=Pending
+  installplan=Installing csv: aap-operator.v2.7.0-0.1793374941=Pending
+  installplan=Failed csv: aap-operator.v2.7.0-0.1793374941=Pending
+error validating existing CRs against new CRD's schema for "automationhubs.automationhub.ansible.com": error validating automationhub.ansible.com/v1beta1, Kind=AutomationHub "aap-crdtest-inert/inert": updated validation is too restrictive: [].status.conditions[0].lastTransitionTime: Required value
+install-4dcq2	Failed	InstallComponentFailed: error validating existing CRs against new CRD's schema for "automationhubs.automationhub.ansible.com": error validating automationhub.ansible.com/v1beta1, Kind=AutomationHub "aap-crdtest-inert/inert": updated validation is too restrictive: [].status.conditions[0].lastTransitionTime: Required value

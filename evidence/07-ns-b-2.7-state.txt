@@ -1,0 +1,14 @@
+## CSV
+aap-operator.v2.7.0-0.1793374941	Succeeded	InstallSucceeded
+## AAP CR spec.eda (parent CR; spec.eda is x-kubernetes-preserve-unknown-fields)
+{"disabled":false,"event_persistence":{"deploy_db":false},"scheduler":{"node_selector":{"kubernetes.io/os":"linux"},"replicas":1,"resource_requirements":{"requests":{"cpu":"111m","memory":"211Mi"}}}}
+## EDA CR: generation, resourceVersion, spec.scheduler, spec keys only present in one CRD revision
+{"generation":2,"resourceVersion":"49968","scheduler":null,"event_persistence":{"deploy_db":false},"specKeyCount":12}
+## EDA scheduler Deployment actually running
+no scheduler deployment
+## CR conditions
+ansibleautomationplatform/aap27  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+eda/aap27-eda  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+automationcontroller/aap27-controller  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+## pods not Running/Completed
+0

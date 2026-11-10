@@ -1,0 +1,16 @@
+# Synthetic: an inert AutomationHub object in a namespace no operator watches.
+# Its status (written by hand below) is valid under the 2.6 AutomationHub CRD but invalid under
+# the 2.7 one (2.7 makes status.conditions[].lastTransitionTime/status/type required).
+# Purpose: show the one gate OLM does have -- an InstallPlan fails when ANY existing CR on the
+# cluster (any namespace) does not validate against the incoming CRD schema.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aap-crdtest-inert
+---
+apiVersion: automationhub.ansible.com/v1beta1
+kind: AutomationHub
+metadata:
+  name: inert
+  namespace: aap-crdtest-inert
+spec: {}

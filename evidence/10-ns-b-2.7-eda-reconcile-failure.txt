@@ -1,0 +1,32 @@
+# 2.7 EDA operator (namespace aap-crdtest-27) reconciling aap27-eda while the cluster CRDs are at the 2.6 schema
+# EDA CR spec diff: before (2.7 CRD) vs after (2.6 CRD written by a later 2.6 InstallPlan)
+8,10d7
+<   "event_persistence": {
+<     "deploy_db": false
+<   },
+12d8
+<     "database_secret": "aap27-eda-event-stream-postgres-configuration",
+48a45,56
+>   "scheduler": {
+>     "node_selector": {
+>       "kubernetes.io/os": "linux"
+>     },
+>     "replicas": 1,
+>     "resource_requirements": {
+>       "requests": {
+>         "cpu": "111m",
+>         "memory": "211Mi"
+>       }
+>     }
+>   },
+
+# operator log
+TASK [postgres : Validate event stream configuration for external database] ****
+fatal: [localhost]: FAILED! => {"changed": false, "msg": "When using an external database, you must provide event stream database credentials. Specify 'event_stream.database_secret' in your EDA CR with a pre-created secret containing the event stream user credentials. The secret must contain: username, password, host, port, and database keys. The event stream database user must be pre-created on your external database with CONNECT privilege."}
+localhost                  : ok=27   changed=0    unreachable=0    failed=1    skipped=37   rescued=0    ignored=0   
+{"level":"error","ts":"2026-11-10T23:27:31Z","name":"aap27-eda","namespace":"aap-crdtest-27","gvk":"eda.ansible.com/v1alpha1, Kind=EDA","event_type":"runner_on_failed","EventData.Task":"Validate event stream configuration for external database","EventData.FailedTaskPath":"/opt/ansible/roles/postgres/tasks/main.yml:36","error":"[playbook task failed]"}
+
+# EDA CR conditions
+{"lastTransitionTime":"2026-11-10T23:13:34Z","reason":"","status":"False","type":"Successful"}
+{"lastTransitionTime":"2026-11-10T23:27:25Z","reason":"Running","status":"False","type":"Running"}
+{"ansibleResult":{"changed":0,"completion":"2026-11-10T23:27:31.461132+00:00","failures":1,"ok":27,"skipped":37},"lastTransitionTime":"2026-11-10T23:21:10Z","reason":"Failed","status":"True","type":"Failure"}

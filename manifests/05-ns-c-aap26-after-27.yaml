@@ -1,0 +1,29 @@
+# Namespace C: a second 2.6 operator installed AFTER 2.7, pinned one patch build behind the channel head.
+# Approving its first InstallPlan models "any 2.6 InstallPlan runs after 2.7 wrote the CRDs"
+# (new 2.6 tenant, or a 2.6 patch update in an existing 2.6 namespace).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aap-crdtest-26b
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: aap-crdtest-26b
+  namespace: aap-crdtest-26b
+spec:
+  targetNamespaces:
+    - aap-crdtest-26b
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ansible-automation-platform-operator
+  namespace: aap-crdtest-26b
+spec:
+  channel: stable-2.6
+  installPlanApproval: Manual
+  name: ansible-automation-platform-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: aap-operator.v2.6.0-0.1793137017

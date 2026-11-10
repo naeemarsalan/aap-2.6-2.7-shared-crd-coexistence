@@ -1,0 +1,37 @@
+# 2.7 namespace right after a 2.6 InstallPlan rewrote the shared CRDs
+## CSV
+aap-operator.v2.7.0-0.1793374941	Succeeded	InstallSucceeded
+## AAP CR spec.eda (parent CR; spec.eda is x-kubernetes-preserve-unknown-fields)
+{"disabled":false,"event_persistence":{"deploy_db":false},"scheduler":{"node_selector":{"kubernetes.io/os":"linux"},"replicas":1,"resource_requirements":{"requests":{"cpu":"111m","memory":"211Mi"}}}}
+## EDA CR: generation, resourceVersion, spec.scheduler, spec keys only present in one CRD revision
+{"generation":2,"resourceVersion":"54585","scheduler":null,"event_persistence":null,"specKeyCount":11}
+## EDA scheduler Deployment actually running
+no scheduler deployment
+## CR conditions
+ansibleautomationplatform/aap27  Failure=False()  Successful=False(Successful)  Running=True(Running)
+eda/aap27-eda  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+automationcontroller/aap27-controller  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+## pods not Running/Completed
+0
+## AAP CR spec.gateway_timeouts
+null
+
+# ...and after the 2.7 operator pods restarted and re-reconciled on the 2.6 CRDs
+## CSV
+aap-operator.v2.7.0-0.1793374941	Succeeded	InstallSucceeded
+## AAP CR spec.eda (parent CR; spec.eda is x-kubernetes-preserve-unknown-fields)
+{"disabled":false,"event_persistence":{"deploy_db":false},"scheduler":{"node_selector":{"kubernetes.io/os":"linux"},"replicas":1,"resource_requirements":{"requests":{"cpu":"111m","memory":"211Mi"}}}}
+## EDA CR: generation, resourceVersion, spec.scheduler, spec keys only present in one CRD revision
+{"generation":3,"resourceVersion":"62920","scheduler":{"node_selector":{"kubernetes.io/os":"linux"},"replicas":1,"resource_requirements":{"requests":{"cpu":"111m","memory":"211Mi"}}},"event_persistence":null,"specKeyCount":12}
+## EDA scheduler Deployment actually running
+no scheduler deployment
+## CR conditions
+ansibleautomationplatform/aap27  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+eda/aap27-eda  Successful=False()  Running=False(Running)  Failure=True(Failed)
+automationcontroller/aap27-controller  Running=True(Successful)  Successful=True(Successful)  Failure=False()
+## pods not Running/Completed
+0
+## AAP CR spec.gateway_timeouts
+null
+## AAP CR status keys
+["URL","adminPasswordSecret","adminUser","conditions","controller","controllerDatabaseSecret","databaseConfigurationSecret","dbFieldsEncryptionSecret","eda","edaDatabaseSecret","edaEventStreamDatabaseSecret","gatewaySettingsConfigurationSecret","image","metrics","metricsDatabaseSecret","metricsReadTokenSecret","redisConfigurationSecret","version"]

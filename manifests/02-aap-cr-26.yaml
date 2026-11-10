@@ -1,0 +1,25 @@
+# AAP instance reconciled by the 2.6 operator.
+# spec.eda.scheduler.* exists in the 2.6 EDA CRD but was removed from the 2.7 EDA CRD,
+# so it is the canary for "what does the newer shared CRD do to the older operator's objects".
+apiVersion: aap.ansible.com/v1alpha1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap26
+  namespace: aap-crdtest-26
+spec:
+  controller:
+    disabled: false
+  eda:
+    disabled: false
+    scheduler:
+      replicas: 1
+      node_selector:
+        kubernetes.io/os: linux
+      resource_requirements:
+        requests:
+          cpu: 111m
+          memory: 211Mi
+  hub:
+    disabled: true   # hub needs RWX storage; not needed to exercise the shared-CRD behaviour
+  lightspeed:
+    disabled: true

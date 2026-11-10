@@ -1,0 +1,8 @@
+OCP 4.20.27
+Kubernetes Version: v1.33.12
+OLM packageserver 0.0.1-snapshot
+bundles:
+stable-2.6	aap-operator.v2.6.0-0.1793352877	skipRange >=2.4.0-0.1727257740 <2.6.1	registry.redhat.io/ansible-automation-platform/platform-operator-bundle@sha256:ce6ee41a0198950958e9a83f266588e1f78415bed10544b60ed017cec0988d63
+stable-2.7	aap-operator.v2.7.0-0.1793374941	skipRange >=2.6.0-0 <2.7.1	registry.redhat.io/ansible-automation-platform/platform-operator-bundle@sha256:d77a3f1146eeaaaf605888fb55010efb51921a14d0cf3fe2fcc8c0cfcee10a45
+stable-2.6-cluster-scoped	aap-operator.v2.6.0-0.1793352771	skipRange >=2.4.0-0.1727259094 <2.6.1	registry.redhat.io/ansible-automation-platform/platform-operator-bundle@sha256:6b6936627bac7f37b29f0b006faa8a07c305e5252b9fb8b6b4850d0bd474ce4e
+stable-2.7-cluster-scoped	aap-operator.v2.7.0-0.1793374989	skipRange >=2.6.0-0 <2.7.1	registry.redhat.io/ansible-automation-platform/platform-operator-bundle@sha256:ae3487c4739f0356309b655df79faa41c39386e6e53580907971fb83105c3cd5

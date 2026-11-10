@@ -1,0 +1,14 @@
+# cluster-scoped 2.7 CSV:
+aap-operator.v2.7.0-0.1793374989	Failed	InterOperatorGroupOwnerConflict	intersecting operatorgroups provide the same apis
+# its InstallPlan:
+install-dkzsv	Complete
+# CRDs after the cluster-scoped InstallPlan (were reset to the 2.6 schema, gen=5, just before):
+ansibleautomationplatforms.aap.ansible.com	gen=6	spec-sha=20cc0b716f7a	v1alpha1*	stored=v1alpha1	aap-crdtest-26/aap-operator.v2.6.0-0.1793352877 aap-crdtest-26b/aap-operator.v2.6.0-0.1793352877 aap-crdtest-27/aap-operator.v2.7.0-0.1793374941 aap-crdtest-global/aap-operator.v2.7.0-0.1793374989
+edas.eda.ansible.com	gen=6	spec-sha=b5ee51ca0dbd	v1alpha1*	stored=v1alpha1	aap-crdtest-26/aap-operator.v2.6.0-0.1793352877 aap-crdtest-26b/aap-operator.v2.6.0-0.1793352877 aap-crdtest-27/aap-operator.v2.7.0-0.1793374941 aap-crdtest-global/aap-operator.v2.7.0-0.1793374989
+# namespace-scoped CSVs:
+aap-crdtest-26	aap-operator.v2.6.0-0.1793352877	Succeeded	InstallSucceeded
+aap-crdtest-26b	aap-operator.v2.6.0-0.1793352877	Succeeded	InstallSucceeded
+aap-crdtest-27	aap-operator.v2.7.0-0.1793374941	Succeeded	InstallSucceeded
+aap-crdtest-global	aap-operator.v2.7.0-0.1793374989	Failed	InterOperatorGroupOwnerConflict
+# operator pods in the cluster-scoped namespace:
+0
