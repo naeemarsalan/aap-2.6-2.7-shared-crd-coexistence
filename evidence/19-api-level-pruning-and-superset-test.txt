@@ -1,0 +1,31 @@
+# API-server-level test on a throwaway kind cluster, Kubernetes v1.33.4 (same minor as the OpenShift 4.20 test cluster).
+# No OLM and no AAP operators: this isolates what the API server does to stored objects when the CRD schema changes.
+# CRDs are the ones from the 2.6 and 2.7 bundles; superset CRDs from scripts/superset_crd.py. Produced by scripts/api-level-test.sh.
+### T1 read-time pruning vs persisted pruning
+2.6 CRD, object created:            {"rv":"1088","gen":1,"scheduler":{"replicas":1},"event_persistence":null,"es_secret":null,"ingress_type":"Route"}
+2.7 CRD applied, no write to object: {"rv":"1088","gen":1,"scheduler":null,"event_persistence":null,"es_secret":null,"ingress_type":"Route"}
+2.6 CRD re-applied, still no write:  {"rv":"1088","gen":1,"scheduler":{"replicas":1},"event_persistence":null,"es_secret":null,"ingress_type":"Route"}
+2.7 CRD, after one STATUS write:     {"rv":"1113","gen":1,"scheduler":null,"event_persistence":null,"es_secret":null,"ingress_type":"Route"}
+2.6 CRD re-applied after that write: {"rv":"1113","gen":1,"scheduler":null,"event_persistence":null,"es_secret":null,"ingress_type":"Route"}
+### T2 putting a pruned field back under the 2.7 CRD
+- default field validation (Warn):
+    Warning: unknown field "spec.scheduler"
+    eda.eda.ansible.com/t patched (no change)
+- strict field validation:
+    rejected: strict decoding error: unknown field "spec.scheduler"
+### T3 superset CRD: neither side's fields are pruned
+superset CRD, 2.6 + 2.7 fields, after a status write: {"rv":"1139","gen":1,"scheduler":{"replicas":1},"event_persistence":{"deploy_db":false},"es_secret":"es-secret","ingress_type":"Route"}
+- 2.7 CEL rule still enforced under the superset (same secret for both databases must be rejected):
+    The EDA "t" is invalid: spec: Invalid value: "object": Event stream database_secret must be different from the main database.database_secret.
+### T4 the superset does not survive the next bundle CRD write (what an InstallPlan does)
+2.6 bundle CRD written over superset, one status write: {"rv":"1149","gen":1,"scheduler":{"replicas":1},"event_persistence":null,"es_secret":null,"ingress_type":"Route"}
+superset re-applied afterwards:                         {"rv":"1149","gen":1,"scheduler":{"replicas":1},"event_persistence":null,"es_secret":null,"ingress_type":"Route"}
+### T5 parent CR: spec.gateway_timeouts under 2.6 / superset
+superset: {"gateway_timeouts":[{"gateway_route_name":"controller api","request_timeout_seconds":321}],"eda":{"event_persistence":{"deploy_db":false},"scheduler":{"replicas":1}}}
+### T6 hub status.conditions tightening (2.6 -> 2.7), no operator involved
+- 2.6 CRD: status condition without lastTransitionTime:
+    automationhub.automationhub.ansible.com/inert patched
+- 2.7 CRD: the same kind of status write:
+    The AutomationHub "inert" is invalid: 
+    * status.conditions[0].lastTransitionTime: Required value
+    * <nil>: Invalid value: "null": some validation rules were not checked because the object was invalid; correct the existing errors to complete validation

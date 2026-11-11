@@ -1,0 +1,64 @@
+## CSV upgrade-graph fields
+stable-2.6	aap-operator.v2.6.0-0.1793352877	skipRange=>=2.4.0-0.1727257740 <2.6.1	replaces=None	skips=None
+stable-2.7	aap-operator.v2.7.0-0.1793374941	skipRange=>=2.6.0-0 <2.7.1	replaces=None	skips=None
+stable-2.6-cluster-scoped	aap-operator.v2.6.0-0.1793352771	skipRange=>=2.4.0-0.1727259094 <2.6.1	replaces=None	skips=None
+stable-2.7-cluster-scoped	aap-operator.v2.7.0-0.1793374989	skipRange=>=2.6.0-0 <2.7.1	replaces=None	skips=None
+
+## Namespace-scoped vs cluster-scoped bundle of the same release: CRD spec identical?
+2.6: 29 of 29 CRDs identical
+2.7: 29 of 29 CRDs identical
+
+## sha256[:12] of each CRD spec as shipped in the bundle (key-sorted JSON; not comparable with
+## crd-state.sh hashes, which are taken from the live object after API-server defaulting)
+ansibleautomationplatformbackups.aap.ansible.com	2.6=eb2a1e6dc1a4	2.7=eb2a1e6dc1a4
+ansibleautomationplatformrestores.aap.ansible.com	2.6=b64005d8cc6d	2.7=b64005d8cc6d
+ansibleautomationplatforms.aap.ansible.com	2.6=2dd5f3004ea1	2.7=b194cec61b72
+ansiblecredentials.tower.ansible.com	2.6=380f8b775efe	2.7=380f8b775efe
+ansibleinstancegroups.tower.ansible.com	2.6=1d2f185ab020	2.7=1d2f185ab020
+ansibleinventories.tower.ansible.com	2.6=bf13f4565c24	2.7=bf13f4565c24
+ansiblejobs.tower.ansible.com	2.6=6163292bea9b	2.7=6163292bea9b
+ansiblelightspeeds.lightspeed.ansible.com	2.6=63050ca2071f	2.7=ad9a6075af86
+ansiblemcpserverbackups.mcpserver.ansible.com	2.6=a75db261cb15	2.7=a75db261cb15
+ansiblemcpserverrestores.mcpserver.ansible.com	2.6=f1edc9769c07	2.7=f1edc9769c07
+ansiblemcpservers.mcpserver.ansible.com	2.6=d2365778c816	2.7=d2365778c816
+ansibleprojects.tower.ansible.com	2.6=1eb8bc37e789	2.7=1eb8bc37e789
+ansibleschedules.tower.ansible.com	2.6=abb7b52724b9	2.7=abb7b52724b9
+ansibleworkflows.tower.ansible.com	2.6=90959b870a25	2.7=90959b870a25
+automationcontrollerbackups.automationcontroller.ansible.com	2.6=65ac6847a85c	2.7=65ac6847a85c
+automationcontrollermeshingresses.automationcontroller.ansible.com	2.6=879ec6ae5839	2.7=879ec6ae5839
+automationcontrollerrestores.automationcontroller.ansible.com	2.6=1dfa19330398	2.7=1dfa19330398
+automationcontrollers.automationcontroller.ansible.com	2.6=30866666b375	2.7=3129c7cd4709
+automationhubbackups.automationhub.ansible.com	2.6=1c048504bbfb	2.7=299b6a587841
+automationhubrestores.automationhub.ansible.com	2.6=e9c22bba0635	2.7=0d413fb6eafe
+automationhubs.automationhub.ansible.com	2.6=2b9f7999e4cf	2.7=24f91f82c4f3
+edabackups.eda.ansible.com	2.6=3fd5832acf2e	2.7=3fd5832acf2e
+edarestores.eda.ansible.com	2.6=1b1a5babba0a	2.7=1b1a5babba0a
+edas.eda.ansible.com	2.6=5e304e97b909	2.7=17f578853b4a
+jobtemplates.tower.ansible.com	2.6=66a633d40cbd	2.7=66a633d40cbd
+metricsservicebackups.automationmetricsservice.ansible.com	2.6=fb4203db8e50	2.7=fb4203db8e50
+metricsservicerestores.automationmetricsservice.ansible.com	2.6=2fa536cf9379	2.7=2fa536cf9379
+metricsservices.automationmetricsservice.ansible.com	2.6=5e3ae2192daa	2.7=5e3ae2192daa
+workflowtemplates.tower.ansible.com	2.6=7b5282acca4b	2.7=7b5282acca4b
+
+## x-kubernetes-preserve-unknown-fields on the main CRDs (None = closed, unknown fields are pruned)
+ansibleautomationplatforms.aap.ansible.com	2.6	.spec=None	.status=True	spec children that preserve: ['controller', 'eda', 'hub', 'lightspeed', 'mcp', 'metrics']
+ansibleautomationplatforms.aap.ansible.com	2.7	.spec=None	.status=True	spec children that preserve: ['controller', 'eda', 'hub', 'lightspeed', 'mcp', 'metrics']
+edas.eda.ansible.com	2.6	.spec=None	.status=True	spec children that preserve: []
+edas.eda.ansible.com	2.7	.spec=None	.status=True	spec children that preserve: []
+automationcontrollers.automationcontroller.ansible.com	2.6	.spec=None	.status=True	spec children that preserve: ['postgres_security_context_settings', 'security_context_settings']
+automationcontrollers.automationcontroller.ansible.com	2.7	.spec=None	.status=True	spec children that preserve: ['postgres_security_context_settings', 'security_context_settings']
+automationhubs.automationhub.ansible.com	2.6	.spec=None	.status=None	spec children that preserve: ['pulp_settings']
+automationhubs.automationhub.ansible.com	2.7	.spec=None	.status=None	spec children that preserve: ['pulp_settings']
+
+## CEL rules (x-kubernetes-validations) on edas.eda.ansible.com .spec
+2.6	!has(self.event_stream) || !has(self.event_stream.prefix) || !has(self.event_stream.mtls_prefix) || self.event_stream.prefix != self.event_stream.mtls_prefix	# Event stream prefix and mtls_prefix cannot be the same.
+2.6	has(self.image) && has(self.image_version) || !has(self.image) && !has(self.image_version)	# Both image and image_version must be set when required
+2.6	has(self.image_web) && has(self.image_web_version) || !has(self.image_web) && !has(self.image_web_version)	# Both image_web and image_web_version must be set when required
+2.6	has(self.redis_image) && has(self.redis_image_version) || !has(self.redis_image) && !has(self.redis_image_version)	# Both redis_image and redis_image_version must be set when required
+2.6	has(self.postgres_image) && has(self.postgres_image_version) || !has(self.postgres_image) && !has(self.postgres_image_version)	# Both postgres_image and postgres_image_version must be set when required
+2.7	!has(self.event_stream) || !has(self.event_stream.prefix) || !has(self.event_stream.mtls_prefix) || self.event_stream.prefix != self.event_stream.mtls_prefix	# Event stream prefix and mtls_prefix cannot be the same.
+2.7	!has(self.event_stream) || !has(self.event_stream.database_secret) || !has(self.database) || !has(self.database.database_secret) || self.event_stream.database_secret != self.database.database_secret	# Event stream database_secret must be different from the main database.database_secret.
+2.7	has(self.image) && has(self.image_version) || !has(self.image) && !has(self.image_version)	# Both image and image_version must be set when required
+2.7	has(self.image_web) && has(self.image_web_version) || !has(self.image_web) && !has(self.image_web_version)	# Both image_web and image_web_version must be set when required
+2.7	has(self.redis_image) && has(self.redis_image_version) || !has(self.redis_image) && !has(self.redis_image_version)	# Both redis_image and redis_image_version must be set when required
+2.7	has(self.postgres_image) && has(self.postgres_image_version) || !has(self.postgres_image) && !has(self.postgres_image_version)	# Both postgres_image and postgres_image_version must be set when required

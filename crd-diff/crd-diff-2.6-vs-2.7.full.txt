@@ -583,7 +583,7 @@ automationhubs.automationhub.ansible.com: versions 2.6=[v1beta1*] 2.7=[v1beta1*]
   [v1beta1] CHANGED .status.conditions[].lastTransitionTime: {"type": "string"} -> {"format": "date-time", "type": "string"}
 edabackups.eda.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
 edarestores.eda.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
-edas.eda.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (835 schema diffs)
+edas.eda.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  (836 schema diffs)
   [v1alpha1] REMOVED in 2.7: .spec.scheduler {"type": "object"}
   [v1alpha1] REMOVED in 2.7: .spec.scheduler.node_selector {"type": "object"}
   [v1alpha1] REMOVED in 2.7: .spec.scheduler.node_selector{} {"type": "string"}
@@ -1418,9 +1418,19 @@ edas.eda.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(def
   [v1alpha1] ADDED in 2.7: .spec.worker.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[].namespaces[] {"type": "string"}
   [v1alpha1] ADDED in 2.7: .spec.worker.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[].topologyKey {"type": "string"}
   [v1alpha1] CHANGED .spec: {"required": ["automation_server_url"], "type": "object", "x-kubernetes-validations": [{"message": "Event stream prefix and mtls_prefix cannot be the same.", "rule": "!has(self.event_stream) || !has(s -> {"required": ["automation_server_url"], "type": "object", "x-kubernetes-validations": [{"message": "Event stream prefix and mtls_prefix cannot be the same.", "rule": "!has(self.event_stream) || !has(s
+  [v1alpha1] CEL RULE ADDED in 2.7 at .spec: !has(self.event_stream) || !has(self.event_stream.database_secret) || !has(self.database) || !has(self.database.database_secret) || self.event_stream.database_secret != self.database.database_secret
   [v1alpha1] CHANGED .spec.ingress_type: {"default": "Route", "enum": ["None", "none", "Ingress", "ingress", "Route", "route"], "type": "string"} -> {"enum": ["None", "none", "Ingress", "ingress", "Route", "route"], "type": "string"}
 jobtemplates.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
 metricsservicebackups.automationmetricsservice.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
 metricsservicerestores.automationmetricsservice.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
 metricsservices.automationmetricsservice.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
 workflowtemplates.tower.ansible.com: versions 2.6=[v1alpha1*] 2.7=[v1alpha1*] conv 2.6=None(default) 2.7=None(default) scope=Namespaced/Namespaced  IDENTICAL-SCHEMA
+
+## Per-CRD counts of schema-node differences (2.6 -> 2.7)
+ansibleautomationplatforms.aap.ansible.com: added=7 removed=0 changed=0
+ansiblelightspeeds.lightspeed.ansible.com: added=2 removed=0 changed=0
+automationcontrollers.automationcontroller.ansible.com: added=0 removed=0 changed=1
+automationhubbackups.automationhub.ansible.com: added=2 removed=0 changed=2
+automationhubrestores.automationhub.ansible.com: added=1 removed=0 changed=2
+automationhubs.automationhub.ansible.com: added=526 removed=0 changed=3
+edas.eda.ansible.com: added=790 removed=43 changed=2

@@ -25,7 +25,7 @@ for side,l in((a,la),(b,lb)):
     print("  webhookdefinitions:",[ (w.get('type'),w.get('generateName')) for w in s.get('webhookdefinitions',[]) or []])
     print("  deployments:",[d['name'] for d in s['install']['spec']['deployments']])
     print("  annotations:",{k:v for k,v in c['metadata']['annotations'].items() if k.startswith('operators.openshift.io/') or k in('operatorframework.io/suggested-namespace','olm.properties')})
-names=sorted((set(a)|set(b))-{'__csv'})
+names=sorted((set(a)|set(b))-{'__csv'}); counts=[]
 print(f"\n## CRDs: {la}={len(a)-1} {lb}={len(b)-1}")
 for n in names:
     if n not in a: print(f"ONLY in {lb}: {n}"); continue
@@ -41,8 +41,18 @@ for n in names:
         for p in sorted(set(fa)-set(fb)): diffs.append(f"  [{ver}] REMOVED in {lb}: {p} {json.dumps(fa[p],sort_keys=True)[:160]}")
         for p in sorted(set(fb)-set(fa)): diffs.append(f"  [{ver}] ADDED in {lb}: {p} {json.dumps(fb[p],sort_keys=True)[:160]}")
         for p in sorted(set(fa)&set(fb)):
-            if fa[p]!=fb[p]: diffs.append(f"  [{ver}] CHANGED {p}: {json.dumps(fa[p],sort_keys=True)[:200]} -> {json.dumps(fb[p],sort_keys=True)[:200]}")
+            if fa[p]!=fb[p]:
+                diffs.append(f"  [{ver}] CHANGED {p}: {json.dumps(fa[p],sort_keys=True)[:200]} -> {json.dumps(fb[p],sort_keys=True)[:200]}")
+                # CEL rules are printed in full: the 200-character cut above hides which rule changed
+                ra=[r['rule'] for r in fa[p].get('x-kubernetes-validations',[])]; rb=[r['rule'] for r in fb[p].get('x-kubernetes-validations',[])]
+                for r in ra:
+                    if r not in rb: diffs.append(f"  [{ver}] CEL RULE REMOVED in {lb} at {p}: {r}")
+                for r in rb:
+                    if r not in ra: diffs.append(f"  [{ver}] CEL RULE ADDED in {lb} at {p}: {r}")
         sa,sb=va[ver].get('subresources'),vb[ver].get('subresources')
         if sa!=sb: diffs.append(f"  [{ver}] subresources {sa} -> {sb}")
     print(line+("  IDENTICAL-SCHEMA" if not diffs else f"  ({len(diffs)} schema diffs)"))
     for d in diffs: print(d)
+    if diffs: counts.append(f"{n}: added={sum(' ADDED in ' in d and 'CEL RULE' not in d for d in diffs)} removed={sum(' REMOVED in ' in d and 'CEL RULE' not in d for d in diffs)} changed={sum(' CHANGED ' in d for d in diffs)}")
+print(f"\n## Per-CRD counts of schema-node differences ({la} -> {lb})")
+for c in counts: print(c)

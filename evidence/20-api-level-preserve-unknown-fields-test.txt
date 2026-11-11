@@ -1,0 +1,14 @@
+# API-server-level test on a throwaway kind cluster, Kubernetes v1.33.4. No OLM, no AAP operators.
+# Each bundle's EDA CRD left as shipped except x-kubernetes-preserve-unknown-fields: true on the nodes below
+# (scripts/preserve_patch.py). Produced by scripts/preserve-test.sh.
+## nodes patched
+ansibleautomationplatforms.aap.ansible.com: .spec, .status
+ansiblelightspeeds.lightspeed.ansible.com: .spec
+automationhubbackups.automationhub.ansible.com: .status, .status.conditions[]
+automationhubrestores.automationhub.ansible.com: .status.conditions[]
+automationhubs.automationhub.ansible.com: .spec, .spec.api, .spec.content, .spec.web, .spec.worker, .status
+edas.eda.ansible.com: .spec, .spec.activation_worker, .spec.api, .spec.default_worker, .spec.event_stream, .spec.ui, .spec.worker
+## result
+patched 2.7 CRD, after a status write: {"rv":"1192","scheduler":{"replicas":1},"event_persistence":{"deploy_db":false},"es_secret":"es-secret"}
+patched 2.6 CRD, after a status write: {"rv":"1200","scheduler":{"replicas":1},"event_persistence":{"deploy_db":false},"es_secret":"es-secret"}
+patched 2.7 CRD again, status write:   {"rv":"1208","scheduler":{"replicas":1},"event_persistence":{"deploy_db":false},"es_secret":"es-secret"}
