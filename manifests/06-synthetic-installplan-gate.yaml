@@ -1,5 +1,5 @@
 # Synthetic: an inert AutomationHub object in a namespace no operator watches.
-# Its status (written by hand below) is valid under the 2.6 AutomationHub CRD but invalid under
+# Its status (written by hand with the command at the end of this file) is valid under the 2.6 AutomationHub CRD but invalid under
 # the 2.7 one (2.7 makes status.conditions[].lastTransitionTime/status/type required).
 # Purpose: show the one gate OLM does have -- an InstallPlan fails when ANY existing CR on the
 # cluster (any namespace) does not validate against the incoming CRD schema.
@@ -14,3 +14,9 @@ metadata:
   name: inert
   namespace: aap-crdtest-inert
 spec: {}
+# After applying this file, write the status by hand (run while the 2.6 CRD is installed):
+#
+#   oc patch automationhub inert -n aap-crdtest-inert --subresource=status --type=merge \
+#     -p '{"status":{"conditions":[{"type":"Successful","status":"True"}]}}'
+#
+# The condition has no lastTransitionTime, which the 2.6 CRD accepts and the 2.7 CRD rejects.
